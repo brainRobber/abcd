@@ -10,7 +10,6 @@ from blog.models import *
 def write_blog(request):
 	resp = {}
 	error = ''
-	print request.POST
 	blog_text = request.POST['blog_text']
 	blog_title = request.POST['blog_title']
 	try:
@@ -43,19 +42,15 @@ def write_blog(request):
 @csrf_exempt
 def get_blogs(request):
 	resp = {}
-	print request.method
 	if request.method == "POST":
 		print request.POST
-		print "inside post if"
 		initial = int(request.POST['num'])
-		print initial
 	else:
 		initial = 0
-	print "reached here"
-	print initial
 	all_posts = BlogPost.objects.all()[initial:initial+5]
+	print all_posts
+	post_list = []
 	if all_posts:
-		post_list = []
 		for post in all_posts:
 			post_dic = {}
 			post_dic['post_id'] = post.id
